@@ -1,6 +1,6 @@
 use crate::SurfaceSize;
 use ultraviolet::Mat4;
-use wgpu::util::DeviceExt;
+use wgpu::{util::DeviceExt, PipelineCompilationOptions};
 
 /// The default renderer that scales your frame to the screen size.
 #[derive(Debug)]
@@ -142,7 +142,8 @@ impl ScalingRenderer {
             layout: Some(&pipeline_layout),
             vertex: wgpu::VertexState {
                 module: &module,
-                entry_point: "vs_main",
+                entry_point: Some("vs_main"),
+                compilation_options: PipelineCompilationOptions::default(),
                 buffers: &[vertex_buffer_layout],
             },
             primitive: wgpu::PrimitiveState::default(),
@@ -150,7 +151,8 @@ impl ScalingRenderer {
             multisample: wgpu::MultisampleState::default(),
             fragment: Some(wgpu::FragmentState {
                 module: &module,
-                entry_point: "fs_main",
+                entry_point: Some("fs_main"),
+                compilation_options: PipelineCompilationOptions::default(),
                 targets: &[Some(wgpu::ColorTargetState {
                     format: render_texture_format,
                     blend: Some(blend_state),
@@ -158,6 +160,7 @@ impl ScalingRenderer {
                 })],
             }),
             multiview: None,
+            cache: None,
         });
 
         // Create clipping rectangle

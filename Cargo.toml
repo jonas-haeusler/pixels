@@ -24,7 +24,7 @@ bytemuck = "1.12"
 raw-window-handle = "0.6"
 thiserror = "1.0"
 ultraviolet = "0.9"
-wgpu = "0.19"
+wgpu = "23.0.1"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wgpu = { version = "0.19", features = ["webgl"] }
@@ -34,7 +34,7 @@ pollster = "0.3"
 
 [dev-dependencies]
 pixels-mocks = { path = "internals/pixels-mocks" }
-winit = "0.29"
+winit = "0.30.8"
 
 [workspace]
 members = [
